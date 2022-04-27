@@ -2,7 +2,9 @@ import { createTheme } from "@mui/material/styles";
 
 const lightTheme = createTheme({
   palette: {
-    mode: "light",
+    custom: {
+      darkGray: "#353b3b",
+    },
   },
 });
 
