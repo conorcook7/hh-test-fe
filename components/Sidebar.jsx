@@ -18,7 +18,7 @@ const RandomButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
   width: "80%",
   paddingTop: ".5rem",
-  paddingBottom: ".5rem",
+  paddingBottom: ".25rem",
 }));
 const ListButton = styled(Button)(({ theme }) => ({
   color: theme.palette.custom.darkGray,

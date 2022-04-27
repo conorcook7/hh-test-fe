@@ -1,42 +1,69 @@
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Image from "next/image";
-import Divider from "@mui/material/Divider";
+import { useEffect, useState } from "react";
+import { Pagination, Box, styled } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import ColorCard from "./ColorCard";
+
+const CustomPagination = styled(Pagination)({
+  marginTop: "4rem",
+  justifyContent: "center",
+  "& .MuiPagination-ul": {
+    justifyContent: "center",
+  },
+});
+const CustomBox = styled(Box)({
+  marginTop: "4rem",
+});
 
 const ListView = ({ colors }) => {
+  const [page, setPage] = useState(1);
+  const [noOfPages, setNoOfPages] = useState(1);
+  const itemsPerPage = 12;
+
+  const handleChangePaginationPage = (event, value) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    setNoOfPages(Math.ceil(colors?.length / itemsPerPage));
+  }, [colors]);
+
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <Toolbar />
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
-        non enim praesent elementum facilisis leo vel. Risus at ultrices mi
-        tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque non
-        tellus. Convallis convallis tellus id interdum velit laoreet id donec
-        ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl
-        suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod
-        quis viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet
-        proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras
-        tincidunt lobortis feugiat vivamus at augue. At augue eget arcu dictum
-        varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt.
-        Lorem donec massa sapien faucibus et molestie ac.
-      </Typography>
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-        ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum
-        integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi
-        lacus sed viverra tellus. Purus sit amet volutpat consequat mauris.
-        Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-        vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra
-        accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac.
-        Pellentesque nec nam aliquam sem et tortor. Habitant morbi tristique
-        senectus et. Adipiscing elit duis tristique sollicitudin nibh sit.
-        Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra
-        maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
-        aliquam ultrices sagittis orci a.
-      </Typography>
-    </Box>
+    <CustomBox>
+      <Grid
+        container
+        spacing={{ xs: 3, md: 4 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {colors
+          .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+          .map((color, i, arr) => {
+            if (arr.length - 1 === i) {
+              // last one
+              return (
+                <Grid item key={color?.id}>
+                  <ColorCard color={color?.colorValue} />
+                </Grid>
+              );
+            } else {
+              // not last one
+              return (
+                <Grid item key={color?.id}>
+                  <ColorCard color={color?.colorValue} />
+                </Grid>
+              );
+            }
+          })}
+      </Grid>
+      <CustomPagination
+        hidePrevButton
+        hideNextButton
+        count={noOfPages}
+        page={page}
+        onChange={handleChangePaginationPage}
+        defaultPage={1}
+        siblingCount={2}
+      />
+    </CustomBox>
   );
 };
 
