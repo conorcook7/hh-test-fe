@@ -19,6 +19,8 @@ you will be taken to a new page that highlights the selected color with a templa
 
 The backend for this project is in the other repository: https://github.com/conorcook7/hh-test-be.
 
+This project can be seen from the hosted link: https://hh-test-7bs0rkc0n-conorcook7.vercel.app/
+
 ## Known Issues / Wishlist
 
 1. Search Bar deosn't work. I wanted to get to this and no a good solution but ran out of time.
