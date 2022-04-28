@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Pagination, Box, styled } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Pagination, styled, Grid, Box } from "@mui/material";
 import ColorCard from "./ColorCard";
+import { NoUnderlineLink } from "./sharedComponents";
 
 const CustomPagination = styled(Pagination)({
   marginTop: "4rem",
@@ -41,14 +41,18 @@ const ListView = ({ colors }) => {
               // last one
               return (
                 <Grid item key={color?.id}>
-                  <ColorCard color={color?.colorValue} />
+                  <NoUnderlineLink href={`/color/${color?.colorValue}`}>
+                    <ColorCard color={color?.colorValue} />
+                  </NoUnderlineLink>
                 </Grid>
               );
             } else {
               // not last one
               return (
                 <Grid item key={color?.id}>
-                  <ColorCard color={color?.colorValue} />
+                  <NoUnderlineLink href={`/color/${color?.colorValue}`}>
+                    <ColorCard color={color?.colorValue} />
+                  </NoUnderlineLink>
                 </Grid>
               );
             }

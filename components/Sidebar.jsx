@@ -1,12 +1,29 @@
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import { Button, styled, Grid } from "@mui/material/";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import { useRouter } from "next/router";
+import {
+  Button,
+  styled,
+  Grid,
+  Box,
+  Drawer,
+  Toolbar,
+  List,
+  ListItem,
+  ListItemText,
+  Link,
+} from "@mui/material/";
 
 const drawerWidth = 240;
+
+const navColors = [
+  { text: "Red", value: "FF0000" },
+  { text: "Orange", value: "FFA500" },
+  { text: "Yellow", value: "FFFF00" },
+  { text: "Green", value: "008000" },
+  { text: "Blue", value: "0000FF" },
+  { text: "Purple", value: "800080" },
+  { text: "Brown", value: "A52A2A" },
+  { text: "Gray", value: "808080" },
+];
 
 const ButtonGrid = styled(Grid)({
   marginTop: "4rem",
@@ -20,15 +37,23 @@ const RandomButton = styled(Button)(({ theme }) => ({
   paddingTop: ".5rem",
   paddingBottom: ".25rem",
 }));
-const ListButton = styled(Button)(({ theme }) => ({
+const CustomLink = styled(Link)(({ theme }) => ({
   color: theme.palette.custom.darkGray,
   textAlign: "left",
   padding: "0",
   width: "100%",
   paddingLeft: ".25rem",
+  textDecoration: "none",
 }));
 
-const Sidebar = () => {
+const Sidebar = ({ colors }) => {
+  const router = useRouter();
+
+  const handleRandom = () => {
+    let randColor = colors[Math.floor(Math.random() * colors.length)];
+    router.push(`/color/${randColor.colorValue}`);
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -46,23 +71,16 @@ const Sidebar = () => {
       <Toolbar />
       <Box sx={{ overflow: "auto" }}>
         <ButtonGrid container justifyContent="center">
-          <RandomButton variant="outlined">Random Color</RandomButton>
+          <RandomButton variant="outlined" onClick={() => handleRandom()}>
+            Random Color
+          </RandomButton>
         </ButtonGrid>
         <List>
-          {[
-            { text: "Red", value: "#FF0000" },
-            { text: "Orange", value: "#FFA500" },
-            { text: "Yellow", value: "#FFFF00" },
-            { text: "Green", value: "#008000" },
-            { text: "Blue", value: "#0000FF" },
-            { text: "Purple", value: "#800080" },
-            { text: "Brown", value: "#A52A2A" },
-            { text: "Gray", value: "#808080" },
-          ].map((color, index) => (
+          {navColors.map((color) => (
             <ListItem button key={color.text}>
-              <ListButton variant="text">
+              <CustomLink href={`/color/${color.value}`}>
                 <ListItemText primary={color.text} />
-              </ListButton>
+              </CustomLink>
             </ListItem>
           ))}
         </List>

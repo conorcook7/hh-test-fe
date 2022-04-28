@@ -1,36 +1,31 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { getColors } from "../utility/fetchColors";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Toolbar from "@mui/material/Toolbar";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import { getColors } from "./api/fetchColors";
+import { CssBaseline, Box } from "@mui/material/";
 import ListView from "../components/ListView";
+import Layout from "../components/Layout";
 
-export default function Home({ colors }) {
-  console.log("colors", colors);
+const Home = ({ colors }) => {
   return (
     <div className={styles.container}>
       <Head>
         <title>Color Picker</title>
         <meta name="description" content="Select your color!" />
+        <link href="../assets/logo-symbol.svg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <Navbar colors={colors} />
-          <Sidebar />
-          <ListView colors={colors} />
+          <Layout colors={colors}>
+            <ListView colors={colors} />
+          </Layout>
         </Box>
       </main>
     </div>
   );
-}
+};
 
 export async function getStaticProps() {
   const results = await getColors();
@@ -41,3 +36,5 @@ export async function getStaticProps() {
     },
   };
 }
+
+export default Home;

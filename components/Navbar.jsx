@@ -1,8 +1,11 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import {
+  styled,
+  Link,
+  AppBar,
+  Toolbar,
+  Typography,
+  InputBase,
+} from "@mui/material/";
 import Logo from "../assets/logo-symbol.svg";
 
 const CustomLogo = styled(Logo)({
@@ -33,6 +36,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = ({ colors }) => {
+  // USE COLORS FOR SEARCH BAR
+
   return (
     <CustomAppBar
       position="fixed"
@@ -45,7 +50,9 @@ const Navbar = ({ colors }) => {
           component="div"
           sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
         >
-          <CustomLogo />
+          <Link href="/">
+            <CustomLogo />
+          </Link>
         </Typography>
         <Search>
           <StyledInputBase
